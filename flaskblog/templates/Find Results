@@ -1,0 +1,207 @@
+Searching 41 files for "url_for()"
+
+0 matches
+
+Searching 41 files for "url_for("
+
+/Users/gunes/FlaskBlog/flaskblog/posts/routes.py:
+   16          db.session.commit()
+   17          flash('Your post has been created!', 'success')
+   18:         return redirect(url_for('home'))
+   19      return render_template('create_post.html', title='New Post',
+   20                             form=form, legend='New Post')
+   ..
+   39          db.session.commit()
+   40          flash('Your post has been updated!', 'success')
+   41:         return redirect(url_for('post', post_id=post.id))
+   42      elif request.method == 'GET':
+   43          form.title.data = post.title
+   ..
+   56      db.session.commit()
+   57      flash('Your post has been deleted!', 'success')
+   58:     return redirect(url_for('home'))
+
+/Users/gunes/FlaskBlog/flaskblog/templates/home.html:
+    3      {% for post in posts.items %}
+    4          <article class="media content-section">
+    5:         	<img class ="rounded-circle article-img" src="{{url_for('static',filename='profile_pics/'+
+    6          	post.author.image_file) }}">
+    7            <div class="media-body">
+    8              <div class="article-metadata">
+    9:               <a class="mr-2" href="{{url_for('user_posts',username=post.author.username)}}">{{ post.author.username }}</a>
+   10                <small class="text-muted">{{ post.date_posted.strftime("%m-%d-%Y")}}</small>
+   11              </div>
+   12:             <h2><a class="article-title" href="{{ url_for('post', post_id=post.id)}}">{{ post.title }}</a></h2>
+   13              <p class="article-content">{{ post.content }}</p>
+   14            </div>
+   ..
+   18        {% if page_num %}
+   19          {% if posts.page == page_num %}
+   20:           <a class="btn btn-info mb-4"href="{{url_for('home', page=page_num)}}">{{ page_num }}</a>
+   21          {%else%}
+   22:           <a class="btn btn-outline-info mb-4"href="{{url_for('home', page=page_num)}}">{{ page_num }}</a>
+   23          {% endif %} 
+   24        {% else %}
+
+/Users/gunes/FlaskBlog/flaskblog/templates/layout.html:
+    9      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   10  
+   11:     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+   12  
+   13      {% if title %}
+   ..
+   27            <div class="collapse navbar-collapse" id="navbarToggle">
+   28              <div class="navbar-nav mr-auto">
+   29:               <a class="nav-item nav-link" href="{{ url_for('home') }}">Home</a>
+   30:               <a class="nav-item nav-link" href="{{ url_for('about') }}">About</a>
+   31              </div>
+   32              <!-- Navbar Right Side -->
+   33              <div class="navbar-nav">
+   34                {% if current_user.is_authenticated %}
+   35:                 <a class="nav-item nav-link" href="{{ url_for('new_post') }}">New Post</a>
+   36:                 <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
+   37:                 <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
+   38                {% else %}
+   39:                 <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
+   40:                 <a class="nav-item nav-link" href="{{ url_for('register') }}">Register</a>
+   41                {% endif %}
+   42              </div>
+
+/Users/gunes/FlaskBlog/flaskblog/templates/login.html:
+   40  				{{form.submit(class="btn btn-outline-info")}}
+   41  				<small class="text-muted ml-2">
+   42: 					<a href="{{url_for('reset_request')}}">Parolu unutdun? Narahat olma.</a>
+   43  				</small>
+   44  			</div>
+   ..
+   47  	<div class="border-top pt-3">
+   48  		<small class="text-muted">
+   49: 			Hesabın yoxdu?<a class="ml-2" href="{{url_for('register')}}">Burdan qeydiyyat olunur  elə deyirlər</a>
+   50  		</small>
+   51  	</div>
+
+/Users/gunes/FlaskBlog/flaskblog/templates/post.html:
+    2  {% block content %}
+    3    <article class="media content-section">
+    4:     <img class="rounded-circle article-img" src="{{ url_for('static', filename='profile_pics/' + post.author.image_file) }}">
+    5      <div class="media-body">
+    6        <div class="article-metadata">
+    7:         <a class="mr-2" href="{{url_for('user_posts',username=post.author.username)}}">{{ post.author.username }}</a>
+    8          <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d') }}</small>
+    9          {% if post.author == current_user %}
+   10            <div>
+   11:             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('update_post', post_id=post.id) }}">Update</a>
+   12              <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+   13            </div>
+   ..
+   30          <div class="modal-footer">
+   31            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+   32:           <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST">
+   33              <input class="btn btn-danger" type="submit" value="Delete">
+   34            </form>
+
+/Users/gunes/FlaskBlog/flaskblog/templates/register.html:
+   66  	<div class="border-top pt-3">
+   67  		<small class="text-muted">
+   68: 			Hesabın var uje? <a class="ml-2" href="{{ url_for('login')}}">Girdə onda nə gözləyirsən?</a>
+   69  		</small>
+   70  	</div>
+
+/Users/gunes/FlaskBlog/flaskblog/templates/user_posts.html:
+    4      {% for post in posts.items %}
+    5          <article class="media content-section">
+    6:         	<img class ="rounded-circle article-img" src="{{url_for('static',filename='profile_pics/'+
+    7          	post.author.image_file) }}">
+    8            <div class="media-body">
+    9              <div class="article-metadata">
+   10:               <a class="mr-2" href="{{url_for('user_posts',username=post.author.username)}}">{{ post.author.username }}</a>
+   11                <small class="text-muted">{{ post.date_posted.strftime("%m-%d-%Y")}}</small>
+   12              </div>
+   13:             <h2><a class="article-title" href="{{ url_for('post', post_id=post.id)}}">{{ post.title }}</a></h2>
+   14              <p class="article-content">{{ post.content }}</p>
+   15            </div>
+   ..
+   19        {% if page_num %}
+   20          {% if posts.page == page_num %}
+   21:           <a class="btn btn-info mb-4"href="{{url_for('user_posts', username=user.username,page=page_num)}}">{{ page_num }}</a>
+   22          {%else%}
+   23:           <a class="btn btn-outline-info mb-4"href="{{url_for('user_posts',username=user.username, page=page_num)}}">{{ page_num }}</a>
+   24          {% endif %} 
+   25        {% else %}
+
+/Users/gunes/FlaskBlog/flaskblog/users/routes.py:
+   11  def register():
+   12      if current_user.is_authenticated:
+   13:         return redirect(url_for('main.home'))
+   14      form = RegistrationForm()
+   15      if form.validate_on_submit():
+   ..
+   19          db.session.commit()
+   20          flash('Your account has been created! You are now able to log in', 'success')
+   21:         return redirect(url_for('login'))
+   22      return render_template('register.html', title='Register', form=form)
+   23  
+   ..
+   26  def login():
+   27      if current_user.is_authenticated:
+   28:         return redirect(url_for('home'))
+   29      form = LoginForm()
+   30      if form.validate_on_submit():
+   ..
+   33              login_user(user, remember=form.remember.data)
+   34              next_page = request.args.get('next')
+   35:             return redirect(next_page) if next_page else redirect(url_for('home'))
+   36          else:
+   37              flash('Login Unsuccessful. Please check email and password', 'danger')
+   ..
+   42  def logout():
+   43      logout_user()
+   44:     return redirect(url_for('home'))
+   45  
+   46  
+   ..
+   57          db.session.commit()
+   58          flash('Your account has been updated!', 'success')
+   59:         return redirect(url_for('account'))
+   60      elif request.method == 'GET':
+   61          form.username.data = current_user.username
+   62          form.email.data = current_user.email
+   63:     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+   64      return render_template('account.html', title='Account',
+   65                             image_file=image_file, form=form)
+   ..
+   79  def reset_request():
+   80      if current_user.is_authenticated:
+   81:         return redirect(url_for('home'))
+   82      form= RequestResetForm()
+   83      if form.validate_on_submit():
+   ..
+   86          send_reset_email(user)
+   87          flash('An email has been sent with instructions to reset your password.','info')
+   88:         return redirect(url_for('login'))
+   89      return render_template('reset_request.html',title='Reset Password', form=form)    
+   90  
+   ..
+   93  def reset_token(token):
+   94      if current_user.is_authenticated:
+   95:         return redirect(url_for('home'))
+   96      user = User.verify_reset_token(token)
+   97      if user is None:
+   98          flash('That is an invalid or expired token', 'warning')
+   99:         return redirect(url_for('reset_request'))
+  100      form = ResetPasswordForm()
+  101      if form.validate_on_submit():
+  ...
+  104          db.session.commit()
+  105          flash('Your password has been update! You are now able to log in', 'success')
+  106:         return redirect(url_for('login'))
+  107      return render_template('reset_token.html',title='Reset Password', form=form)        
+
+/Users/gunes/FlaskBlog/flaskblog/users/utils.py:
+   37          subject = 'Verification link'
+   38          body = f'''To reset your password, visit the following link:
+   39: {url_for('reset_token',token=token,_external=True)}
+   40  
+   41  If you did not make this request then simply ignore this email and no changing
+
+41 matches across 9 files
