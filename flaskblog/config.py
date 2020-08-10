@@ -12,8 +12,8 @@ class Config:
 	SQLALCHEMY_TRACK_MODIFICATIONS=False
 def send_reset_email(user):
 	token = user.get_reset_token()
-	EMAIL_ADDRESS = config.get('EMAIL_ADDRESS')
-	EMAIL_PASSWORD = config.get('EMAIL_PASSWORD')
+	EMAIL_ADDRESS = config.get('EMAIL_USER')
+	EMAIL_PASSWORD = config.get('EMAIL_PASS')
 
 	with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
 		smtp.ehlo()
