@@ -2,18 +2,15 @@ import os
 import smtplib
 import secrets
 from flask import url_for
-import json
-with open('/Users/gunes/tababuka/flaskblog/config.json') as config_file:
-	config = json.load(config_file)
 
 class Config:
-	SECRET_KEY =config.get('SECRET_KEY')
-	SQLALCHEMY_DATABASE_URI =config.get('SQLALCHEMY_DATABASE_URI')
+	SECRET_KEY ="421070be4c6a0c41ab002c357a836532"
+	SQLALCHEMY_DATABASE_URI ="sqlite:///site.db"
 	SQLALCHEMY_TRACK_MODIFICATIONS=False
 def send_reset_email(user):
 	token = user.get_reset_token()
-	EMAIL_ADDRESS = config.get('EMAIL_USER')
-	EMAIL_PASSWORD = config.get('EMAIL_PASS')
+	EMAIL_ADDRESS = "EMAIL_USER"
+	EMAIL_PASSWORD = "EMAIL_PASS"
 
 	with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
 		smtp.ehlo()
