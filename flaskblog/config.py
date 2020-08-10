@@ -3,7 +3,7 @@ import smtplib
 import secrets
 from flask import url_for
 import json
-with open('/Users/gunes/FlaskBlog/flaskblog/config.json') as config_file:
+with open('/Users/gunes/tababuka/flaskblog/config.json') as config_file:
 	config = json.load(config_file)
 
 class Config:
