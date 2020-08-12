@@ -21,8 +21,8 @@ def save_picture(form_picture):
 
 def send_reset_email(user):
     token = user.get_reset_token()
-    EMAIL_ADDRESS = os.environ.get('EMAIL_ADDRESS')
-    EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD')
+    EMAIL_ADDRESS = "farrutare273@gmail.com"
+    EMAIL_PASSWORD = "srpY3myaTBSkBKG"
 
     with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
         smtp.ehlo()
