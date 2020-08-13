@@ -5,7 +5,7 @@ from flask import url_for
 
 class Config:
 	SECRET_KEY ="421070be4c6a0c41ab002c357a836532"
-	SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
+	SQLALCHEMY_DATABASE_URI = "sqlite:///site.db"
 	SQLALCHEMY_TRACK_MODIFICATIONS=False
 def send_reset_email(user):
 	token = user.get_reset_token()
